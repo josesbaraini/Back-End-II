@@ -1,11 +1,17 @@
 import express from 'express';
-import pool from './servico/conexao.js';
+import  retornaCampeonatos  from './servicos/retornaCampeonatos_servico.js';
 
 const app = express();
-app.listen(9000, async () => {
+
+app.get('/campeonatos', async (req, res) => {
+    const campeonatos = await retornaCampeonatos(); res.json(campeonatos);
+})
+
+app.listen(9000, () => {
+
     const data = new Date();
     console.log("Servidor node iniciado em: " + data);
-    const conexao = await pool.getConnection();
-    console.log(conexao.threadId);
-    conexao.release();
+
 })
+
+

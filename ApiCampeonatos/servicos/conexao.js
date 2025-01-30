@@ -1,5 +1,5 @@
 import  mysql  from "mysql2/promise";
-const pool = mysql2.createPool({
+const pool = mysql.createPool({
     host:'localhost',
     user: 'Libertadores',
     password:'liberta123',
