@@ -15,11 +15,21 @@ export async function retornaMedicos()
     return medicos;
 }
 export async function retornaMedicosNome(nome)
+
 {   
     const conexao = await pool.getConnection();
-    const query = `SELECT medicos.id, nome, telefone, especialidades.especialidade FROM medicos INNER JOIN especialidades where medicos.especialidade = especialidades.id and upper(nome) like '${nome.toUpperCase()}%' order by nome ASC;`;
+    const query = `SELECT medicos.id, nome, telefone, especialidades.especialidade FROM medicos INNER JOIN especialidades where medicos.especialidade = especialidades.id and nome like '${nome} %' order by nome ASC;`;
     const medicos = executaQuery(conexao, query);
     conexao.release();
     return medicos;
 }
 
+export async function retornaMedicosEspecialidade(especialidade)
+
+{   
+    const conexao = await pool.getConnection();
+    const query = `SELECT medicos.id, nome, telefone, especialidades.especialidade FROM medicos INNER JOIN especialidades where medicos.especialidade = especialidades.id and especialidades.especialidade = '${especialidade}' order by nome ASC`;
+    const medicos = executaQuery(conexao, query);
+    conexao.release();
+    return medicos;
+}

@@ -1,20 +1,29 @@
 import express from 'express';
-import { retornaMedicos, retornaMedicosNome} from './servico/retornaMedico_servico.js';
+import { retornaMedicos, retornaMedicosNome, retornaMedicosEspecialidade} from './servico/retornaMedico_servico.js';
 const app = express();
 
 app.get('/medicos', async (req, res) => {
     let medicos;
     const nome = req.query.nome;
-    if (typeof nome === 'undefined') {
+    const especialidade = req.query.especialidade;
+    
+    if (typeof nome === 'undefined' && typeof especialidade === 'undefined') {
         medicos = await  retornaMedicos()}
-    else{
+    else if(typeof especialidade === 'undefined'){
         console.log(nome)
-        medicos = retornaMedicosNome(nome)
+        medicos = await retornaMedicosNome(nome)
+    }
+    else if(typeof nome === 'undefined'){
+        medicos = await retornaMedicosEspecialidade(especialidade)
 
     }
+    if (medicos.length > 0) {
+        res.json(medicos);
+        
+    }else {
+        res.status(404).json({ mensagem: "Nenhum Médico Encontrado" });
+    }
    
-    
-    res.json(medicos);
 
 })
 
