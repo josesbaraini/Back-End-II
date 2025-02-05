@@ -1,8 +1,9 @@
 import express from 'express';
+import cors from 'cors';
 
 import { retornaMedicos, retornaMedicosNome, retornaMedicosEspecialidade} from './servico/retornaMedico_servico.js';
 const app = express();
-
+app.use(cors())
 app.get('/medicos', async (req, res) => {
     let medicos;
     const nome = req.query.nome;
