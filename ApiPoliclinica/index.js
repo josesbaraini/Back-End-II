@@ -1,4 +1,5 @@
 import express from 'express';
+
 import { retornaMedicos, retornaMedicosNome, retornaMedicosEspecialidade} from './servico/retornaMedico_servico.js';
 const app = express();
 
