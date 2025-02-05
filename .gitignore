@@ -1,3 +1,4 @@
 /apiUF/node_modules
 /ApiCampeonatos/node_modules
 /ApiPoliclinica/node_modules
+.env
