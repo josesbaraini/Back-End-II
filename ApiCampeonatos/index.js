@@ -68,8 +68,8 @@ app.patch('/campeonatos/:id', async (req,res)=>{
     const {campeao,vice,ano} = req.body;
     const camposAtualizar ={}
     if (campeao) camposAtualizar.campeao = campeao
-    if (vice) camposAtualizar.campeao = vice
-    if (ano) camposAtualizar.campeao = ano
+    if (vice) camposAtualizar.vice = vice
+    if (ano) camposAtualizar.ano = ano
 
     if(Object.keys(camposAtualizar).length === 0){
         res.status(404).send('Nenhum campo valido foi enviado para atualização');
