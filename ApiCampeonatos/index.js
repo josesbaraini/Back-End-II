@@ -1,7 +1,7 @@
 import express from 'express';
 import { retornaCampeonatos, retornaCampeonatosID, retornaCampeonatosAno, retornaCampeonatosTime } from './servicos/retornaCampeonatos_servico.js';
 import { cadastraCampeonato } from './servicos/cadastroCampeonato_servico.js';
-import { atualizaCampeonato } from './servicos/atualizaCampeonato_servico.js'
+import { atualizaCampeonato, atualizaCampeonatoParcial } from './servicos/atualizaCampeonato_servico.js'
 import cors from 'cors';
 
 
@@ -61,6 +61,30 @@ app.put('/campeonatos/:id', async (req, res) => {
     }
     await atualizaCampeonato(id, campeao, vice, ano)
     res.status(204).end()
+})
+
+app.patch('/campeonatos/:id', async (req,res)=>{
+    const {id} = req.params
+    const {campeao,vice,ano} = req.body;
+    const camposAtualizar ={}
+    if (campeao) camposAtualizar.campeao = campeao
+    if (vice) camposAtualizar.campeao = vice
+    if (ano) camposAtualizar.campeao = ano
+
+    if(Object.keys(camposAtualizar).length === 0){
+        res.status(404).send('Nenhum campo valido foi enviado para atualização');
+
+    }else{
+        const resultado = await atualizaCampeonatoParcial(id,camposAtualizar);
+        if (resultado.affectedRows >0) {
+            res.status(202).send('Registro atuzalizado com sucesso');
+        } else {
+            res.status(404).send('Registro Não encontrado');
+            
+        }
+    }
+    
+
 })
 
 app.listen(9000, () => {

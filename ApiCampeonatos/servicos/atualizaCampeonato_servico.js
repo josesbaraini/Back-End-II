@@ -9,3 +9,15 @@ export async function atualizaCampeonato(id, campeao, vice, ano) {
     conexao.release();
     return resposta;
 }
+
+export async function atualizaCampeonatoParcial(id,campos) {
+    const conexao = await pool.getConnection();
+    const colunas = Object.keys(campos).map(campo => `${campo} = ?`).join(', ')
+    const valores = Object.values(campos);
+    const query = `UPDATE campeonatos SET ${colunas} where id =?`
+    valores.push(id)
+    const [resposta] = await conexao.execute(query, valores)
+    console.log(valores)
+    conexao.release()
+    return  resposta
+}
