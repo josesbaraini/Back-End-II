@@ -7,15 +7,14 @@ const app = express();
 app.use(cors())
 app.use(express.json());
 app.post('/usuarios', async (req, res) => {
-    const nome = req.body.nome;
-        const email = req.body.email;
-        const telefone = req.body.telefone;
+        const {nome,email,telefone} = req.body;
+
         if (validaUsuario(nome,email,telefone) === true){
             await cadastraLead(nome, email, telefone)
-            res.status(204).end()
+            res.status(204).send('Cadastro completo')
 
         }else{
-            res.status(404).end()
+            res.status(400).send('Dados de cadastro invalidos')
 
         }
         
@@ -24,7 +23,7 @@ app.post('/usuarios', async (req, res) => {
 })
 
 
-app.listen(9000, () => {
+app.listen(9001, () => {
 
     const data = new Date();
     console.log("Servidor node iniciado em: " + data);
