@@ -2,6 +2,7 @@ import express from 'express';
 import { retornaCampeonatos, retornaCampeonatosID, retornaCampeonatosAno, retornaCampeonatosTime } from './servicos/retornaCampeonatos_servico.js';
 import { cadastraCampeonato } from './servicos/cadastroCampeonato_servico.js';
 import { atualizaCampeonato, atualizaCampeonatoParcial } from './servicos/atualizaCampeonato_servico.js'
+import { deletaCampeonato } from './servicos/deletaCampeonato_servico.js';
 import cors from 'cors';
 
 
@@ -61,6 +62,24 @@ app.put('/campeonatos/:id', async (req, res) => {
     }
     await atualizaCampeonato(id, campeao, vice, ano)
     res.status(204).end()
+})
+app.delete('/campeonatos/:id', async(req,res) =>{
+    const {id} = req.params
+    
+
+    if (isNaN(id)) {
+        res.status(404).send('Resgistro trolado')
+    }else{
+        const resultado = await deletaCampeonato(id);
+    
+    
+    if (resultado.affectedRows > 0) {
+
+        res.status(202).send('Deletou ai sim paizão')
+    }else{
+        res.status(404).send('Resgistro não encontrado')
+    }
+}
 })
 
 app.patch('/campeonatos/:id', async (req,res)=>{

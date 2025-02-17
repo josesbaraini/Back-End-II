@@ -1,5 +1,2 @@
-/apiUF/node_modules
-/ApiCampeonatos/node_modules
-/ApiPoliclinica/node_modules
-/ApiCadastroUsuarios/node_modules
+node_modules
 .env
