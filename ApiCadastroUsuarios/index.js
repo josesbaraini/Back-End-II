@@ -9,7 +9,7 @@ app.use(express.json());
 app.post('/usuarios', async (req, res) => {
         const {nome,email,telefone} = req.body;
 
-        if (validaUsuario(nome,email,telefone) === true){
+        if (validaUsuario(nome,email,telefone)){
             await cadastraLead(nome, email, telefone)
             res.status(204).send('Cadastro completo')
 
