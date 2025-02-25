@@ -9,6 +9,7 @@ app.use(express.json());
 app.post('/usuarios', async (req, res) => {
     const { nome, email, telefone } = req.body;
 
+<<<<<<< HEAD
     if (validaUsuario(nome, email, telefone)) {
         await cadastraLead(nome, email, telefone);
         res.status(204).send('Cadastro completo');
@@ -17,6 +18,11 @@ app.post('/usuarios', async (req, res) => {
         res.status(400).send('Dados de cadastro invalidos');
 
     }
+=======
+        if (validaUsuario(nome,email,telefone)){
+            await cadastraLead(nome, email, telefone)
+            res.status(204).send('Cadastro completo')
+>>>>>>> ab9505dc673869e8756471e507318af799772a60
 
 
 
